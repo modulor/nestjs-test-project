@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Param } from '@nestjs/common';
 
 import { CreateTaskDTO } from './dto/create-task.dto';
 
@@ -15,9 +15,23 @@ export class TasksController {
     message: string;
   } {
     console.log(task);
+
     return {
       success: true,
       message: 'Everything OK!',
+    };
+  }
+
+  @Delete(':id')
+  deleteTask(@Param('id') id): {
+    success: boolean;
+    message: string;
+    id: string;
+  } {
+    return {
+      success: true,
+      message: 'Task deleted successfully',
+      id: id,
     };
   }
 }
