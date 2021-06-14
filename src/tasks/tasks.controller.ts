@@ -26,12 +26,10 @@ export class TasksController {
   deleteTask(@Param('id') id): {
     success: boolean;
     message: string;
-    id: string;
   } {
     return {
       success: true,
-      message: 'Task deleted successfully',
-      id: id,
+      message: `Task id ${id} deleted successfully`,
     };
   }
 }
