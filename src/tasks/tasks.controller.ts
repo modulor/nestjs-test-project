@@ -17,26 +17,18 @@ export class TasksController {
   constructor(private taskService: TasksService) {}
 
   @Get()
-  getTasks(): Task[] {
+  getTasks(): Promise<Task[]> {
     return this.taskService.getTasks();
   }
 
   @Get(':id')
-  getTask(@Param('id') id: string): Task {
-    return this.taskService.getTask(parseInt(id));
+  getTask(@Param('id') id: string) {
+    return this.taskService.getTask(id);
   }
 
   @Post()
-  createTask(@Body() task: CreateTaskDTO): {
-    success: boolean;
-    message: string;
-  } {
-    console.log(task);
-
-    return {
-      success: true,
-      message: 'Everything OK!',
-    };
+  createTask(@Body() task: CreateTaskDTO): Promise<Task> {
+    return this.taskService.createTask(task);
   }
 
   @Delete(':id')

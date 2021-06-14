@@ -1,34 +1,23 @@
+import { CreateTaskDTO } from './dto/create-task.dto';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { Task } from './interfaces/Task';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class TasksService {
-  tasks: Task[] = [
-    {
-      id: 1,
-      title: 'a title',
-      description: 'this is a description for task a title',
-      done: true,
-    },
-    {
-      id: 2,
-      title: 'task two',
-      description: 'this is a description for task task two',
-      done: false,
-    },
-    {
-      id: 3,
-      title: 'task three',
-      description: 'this is a description for task task three',
-      done: true,
-    },
-  ];
+  constructor(@InjectModel('Task') private taskModel: Model<Task>) {}
 
-  getTasks(): Task[] {
-    return this.tasks;
+  async getTasks() {
+    return await this.taskModel.find();
   }
 
-  getTask(id: number): Task {
-    return this.tasks.find((task) => task.id === id);
+  async getTask(id: string) {
+    await this.taskModel.findById(id);
+  }
+
+  async createTask(task: CreateTaskDTO) {
+    const newTask = new this.taskModel(task);
+    return await newTask.save();
   }
 }
