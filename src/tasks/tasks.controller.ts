@@ -23,6 +23,8 @@ export class TasksController {
 
   @Get(':id')
   getTask(@Param('id') id: string) {
+    console.log('get task id:', id);
+
     return this.taskService.getTask(id);
   }
 

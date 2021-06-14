@@ -13,7 +13,7 @@ export class TasksService {
   }
 
   async getTask(id: string) {
-    await this.taskModel.findById(id);
+    return await this.taskModel.findById(id);
   }
 
   async createTask(task: CreateTaskDTO) {
