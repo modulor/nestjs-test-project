@@ -22,7 +22,7 @@ export class TasksController {
   }
 
   @Get(':id')
-  getTask(@Param('id') id): Task {
+  getTask(@Param('id') id: string): Task {
     return this.taskService.getTask(parseInt(id));
   }
 
